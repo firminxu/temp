@@ -1,11 +1,31 @@
-from processing_py import *
+from mainwindow import Ui_MainWindow
+import sys
+from PyQt5.Qt import *
 
-app = App(600,400) # create window: width, height
-app.background(0,0,0) # set background:  red, green, blue
-app.fill(255,255,0) # set color for objects: red, green, blue
-app.rect(100,100,200,100) # draw a rectangle: x0, y0, size_x, size_y
-app.fill(0,0,255) # set color for objects: red, green, blue
-app.ellipse(300,200,50,50) # draw a circle: center_x, center_y, size_x, size_y
-app.redraw() # refresh the window
-for y in range(0,app.width,app.width//4):
-    app.ellipse(0,y,50,50)
+
+class Qmywindow(QMainWindow):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.ui = Ui_MainWindow()
+        self.ui.setupUi(self)
+        # self.ui.pushButton.clicked.connect(self.on_pushButton_click)
+
+    def on_pushButton_clicked(self):
+        print('已经点击')
+        d = int(self.ui.dLineEdit.text())
+        s = int(self.ui.sLineEdit.text())
+        if d % 2 == 0:
+            self.ui.dOutLabel.setText("这是一个偶数")
+        else:
+            self.ui.dOutLabel.setText("这不是一个偶数")
+        if s % 2 != 0:
+            self.ui.sOutLabel.setText("这是一个奇数")
+        else:
+            self.ui.sOutLabel.setText("这不是一个奇数")
+
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    baseWidget = Qmywindow()
+    baseWidget.show()
+    sys.exit(app.exec_())
